@@ -40,9 +40,12 @@ class Window(QMainWindow):
         list=file.readlines()
         file=open("db.txt","w")
         for l in list:
-            if l.strip("\n")!=text:
+            if self.modify(l.strip("\n")) != text:
+                print(l.strip("\n"))
                 file.write(l.strip("\n"))
                 file.write("\n")
+            else:
+                print("deleted")
         file.close()
     def initUI(self):
         self.label1=QtWidgets.QLabel(self)
@@ -187,8 +190,9 @@ class Window(QMainWindow):
         text=text.strip("\n")
         text=text.split(" ")
         password=text[len(text)-1]
-        print(password)
-        text[len(text)-1]="Password: {}".format(self.decoder(password))
+        
+        text[len(text)-1]="{}".format(self.decoder(password))
+        print(" ".join(text),"modified")
         return " ".join(text)
 
 def start():
